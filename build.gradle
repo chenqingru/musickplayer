@@ -1,0 +1,147 @@
+// 进行配置
+apply from: 'config.gradle'
+apply plugin: 'groovy'
+apply plugin: 'java'
+apply plugin: 'idea'
+
+
+buildscript {
+    ext.kotlin_version = '1.4.30'//kotlin版本
+
+    repositories {
+        mavenLocal()
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        maven { url "https://maven.aliyun.com/repository/google" }
+        maven { url "https://maven.aliyun.com/repository/public" }
+        maven { url "https://maven.aliyun.com/repository/jcenter" }
+        maven { url "https://maven.aliyun.com/repository/gradle-plugin" }
+        maven { url "http://nexus2.tingyun.com/nexus/content/repositories/snapshots/" }
+
+        google()
+        mavenCentral()
+
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        maven { url 'https://developer.huawei.com/repo/' }
+        maven { url 'https://repo1.maven.org/maven2/' }
+        maven { url 'http://maven.corp.anjuke.com/nexus/content/groups/android/' }
+
+        // byteX
+        maven { url "https://artifact.bytedance.com/repository/byteX/" }
+
+    }
+    dependencies {
+        //classpath 'com.android.tools:r8:2.2.64'
+        classpath 'com.android.tools.build:gradle:4.0.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
+
+    }
+}
+
+allprojects {
+    repositories {
+        mavenLocal()
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        maven { url "http://nexus2.tingyun.com/nexus/content/repositories/snapshots/" }
+        maven { url "https://maven.aliyun.com/repository/google" }
+        maven { url "https://maven.aliyun.com/repository/public" }
+        maven { url "https://maven.aliyun.com/repository/jcenter" }
+        maven { url "https://maven.aliyun.com/repository/gradle-plugin" }
+
+
+        google()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+        maven { url 'https://developer.huawei.com/repo/' }
+        maven { url 'https://repo1.maven.org/maven2/' }
+    }
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        }
+    }
+
+}
+
+
+idea {
+    module {
+        excludeDirs += [
+                gradle.gradleUserHomeDir,
+                rootProject.buildDir,
+                new File(rootProject.rootDir, '.idea'),
+                new File(rootProject.rootDir, '.gradle')
+        ]
+        println "idea.rootProject.subprojects.size()=${rootProject.subprojects.size()}"
+        def buildDirs = rootProject.subprojects.collect { p ->
+            return p.buildDir;
+        };
+        println "idea.buildDirs=${buildDirs}"
+        excludeDirs += buildDirs
+        println "idea.excludeDirs=${excludeDirs}"
+    }
+}
+
+allprojects {
+
+    afterEvaluate {
+        tasks.whenTaskAdded { task ->
+            if (task.name.contains("Test")) {
+                task.enabled = false
+            }
+        }
+    }
+
+    configurations.all { configuration ->
+        resolutionStrategy {
+
+            eachDependency { DependencyResolveDetails details ->
+                def requested = details.requested
+                switch (requested.group) {
+
+                }
+            }
+        }
+
+    }
+}
+
+subprojects {
+    afterEvaluate {
+        android {
+            //升级gradle必须指定与beta平台相同版本号
+            ndkVersion "21.1.6352462"
+        }
+    }
+}
+
+int compareVersion(String lhs, String rhs) {
+    int[] lhsVersions = parseVersionToInt(lhs);
+    int[] rhsVersions = parseVersionToInt(rhs);
+
+    int minLen = Math.min(lhsVersions.length, rhsVersions.length)
+    for (int i = 0; i < minLen; i++) {
+        int diff = lhsVersions[i] - rhsVersions[i];
+        if (diff != 0) {
+            return diff;
+        }
+    }
+
+    if (minLen < lhsVersions.length) {
+        return 1;
+    } else {
+        return -1;
+    }
+}
+
+int[] parseVersionToInt(String version) {
+    def versions = version.split(".")
+    int[] numbers = new int[versions.length];
+    for (int i = 0; i < versions.length; i++) {
+        numbers[i] = versions[i].toInteger()
+    }
+    return numbers;
+}

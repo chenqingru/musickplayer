@@ -1,0 +1,20 @@
+/**
+ * 修改dependencyMode可实现全局aar依赖或源码依赖
+ */
+def dependencyMode = "aar"//project|aar
+
+/**
+ * 如果开关为true则为aar依赖，否则为源码依赖，可灵活设置单个Lib库的依赖方BaseIntentService式
+ */
+switchs = [
+
+
+]
+
+if (getProperties().get("project") == null) {
+    return
+}
+
+ext {
+
+}
