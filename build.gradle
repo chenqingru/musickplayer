@@ -97,7 +97,6 @@ allprojects {
 
     configurations.all { configuration ->
         resolutionStrategy {
-
             eachDependency { DependencyResolveDetails details ->
                 def requested = details.requested
                 switch (requested.group) {
@@ -109,39 +108,3 @@ allprojects {
     }
 }
 
-subprojects {
-    afterEvaluate {
-        android {
-            //升级gradle必须指定与beta平台相同版本号
-            ndkVersion "21.1.6352462"
-        }
-    }
-}
-
-int compareVersion(String lhs, String rhs) {
-    int[] lhsVersions = parseVersionToInt(lhs);
-    int[] rhsVersions = parseVersionToInt(rhs);
-
-    int minLen = Math.min(lhsVersions.length, rhsVersions.length)
-    for (int i = 0; i < minLen; i++) {
-        int diff = lhsVersions[i] - rhsVersions[i];
-        if (diff != 0) {
-            return diff;
-        }
-    }
-
-    if (minLen < lhsVersions.length) {
-        return 1;
-    } else {
-        return -1;
-    }
-}
-
-int[] parseVersionToInt(String version) {
-    def versions = version.split(".")
-    int[] numbers = new int[versions.length];
-    for (int i = 0; i < versions.length; i++) {
-        numbers[i] = versions[i].toInteger()
-    }
-    return numbers;
-}
