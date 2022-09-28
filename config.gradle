@@ -19,16 +19,53 @@ if (getProperties().get("project") == null) {
 ext {
     RetrofitVersion = "2.5.0"
 
-    MMKV                        =["com.tencent:mmkv:1.2.11"]
-    SoLoader                    =["com.wuba.wuxian.sdk:soloader:0.0.4"]
+    CoreKTX = ["androidx.core:core-ktx:1.7.0"]
+    Appcompat = ["androidx.appcompat:appcompat:1.4.1"]
+    Material = ["com.google.android.material:material:1.5.0"]
+    MMKV = ["com.tencent:mmkv:1.2.11"]
     Kotlin = ["org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"]
-    Retrofit = ["com.squareup.retrofit2:retrofit:" + "$RetrofitVersion"]
-    RetrofitAdapterRxJava = ["com.squareup.retrofit2:adapter-rxjava:$RetrofitVersion"]
-    RetrofitConvererGson = ["com.squareup.retrofit2:converter-gson:$RetrofitVersion"]
-
-    SeedNetworkLib=[
-            rootProject.ext.Retrofit,
-            rootProject.ext.RetrofitAdapterRxJava,
-            rootProject.ext.RetrofitConvererGson,
+    Retrofit = [
+            "com.squareup.retrofit2:retrofit:" + "$RetrofitVersion",
+            "com.squareup.retrofit2:adapter-rxjava:$RetrofitVersion",
+            "com.squareup.retrofit2:converter-gson:$RetrofitVersion"
     ]
+
+
+    Coroutines = [
+            "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3",
+            "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3",
+            "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.4.3",
+    ]
+
+    Lifecycle = [
+            "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0",
+            "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0",
+            "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
+    ]
+    Glide = ['com.github.bumptech.glide:glide:4.13.2']
+
+    Xlog = ['com.elvishew:xlog:1.10.1']
+
+
+    SeedGlobalEnvLib = [
+            rootProject.ext.Xlog,
+            rootProject.ext.Glide,
+    ]
+
+    SeedNetworkLib = [
+            rootProject.ext.SeedGlobalEnvLib,
+            rootProject.ext.Retrofit,
+            rootProject.ext.CoreKTX,
+    ]
+
+
+    app = [
+            rootProject.ext.SeedNetworkLib,
+            rootProject.ext.SeedGlobalEnvLib,
+            rootProject.ext.Appcompat,
+            rootProject.ext.CoreKTX,
+            rootProject.ext.Material,
+    ]
+
+
 }
