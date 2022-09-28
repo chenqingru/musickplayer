@@ -1,3 +1,5 @@
+import org.codehaus.groovy.runtime.GStringImpl
+
 // 进行配置
 apply from: 'config.gradle'
 apply plugin: 'groovy'
@@ -137,4 +139,21 @@ def implementationLibs(project, name) {
         }
     }
 }
+
+
+
+def compileRecurse(List compileLibs, List libs, Project project) {
+    libs.each {
+        if ((it instanceof String || it instanceof GStringImpl) && it.indexOf(project.getName()) > 0) {
+
+        } else if (it instanceof Project && it.getName() == project.getName()) {
+
+        } else if (it instanceof List) {
+            compileRecurse(compileLibs, it, project);
+        } else if (it != "" && it != '' && !compileLibs.contains(it)) {
+            compileLibs.add(it);
+        }
+    }
+}
+
 

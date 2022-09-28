@@ -25,4 +25,10 @@ ext {
     Retrofit = ["com.squareup.retrofit2:retrofit:" + "$RetrofitVersion"]
     RetrofitAdapterRxJava = ["com.squareup.retrofit2:adapter-rxjava:$RetrofitVersion"]
     RetrofitConvererGson = ["com.squareup.retrofit2:converter-gson:$RetrofitVersion"]
+
+    SeedNetworkLib=[
+            rootProject.ext.Retrofit,
+            rootProject.ext.RetrofitAdapterRxJava,
+            rootProject.ext.RetrofitConvererGson,
+    ]
 }
