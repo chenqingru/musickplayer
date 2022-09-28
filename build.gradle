@@ -108,3 +108,33 @@ allprojects {
     }
 }
 
+
+def getCompileLibs(Project project){
+    return getCompileLibs(project,project.getName());
+}
+
+def getCompileLibs(Project project,String name){
+    String key = name;
+
+    def compileLibs = [];
+    if(rootProject.ext.has(key)){
+        compileRecurse(compileLibs,rootProject.ext[key],project);
+    }
+    return compileLibs;
+}
+def implementationLibs(project, name) {
+    getCompileLibs(project, name).each {
+        if (it instanceof Project) {
+            if (Boolean.parseBoolean(AAB_SWITCH)){
+                if (!excludeFeatureProject(it)) {
+                    project.dependencies.implementation(it)
+                }
+            }else{
+                project.dependencies.implementation(it)
+            }
+        } else {
+            project.dependencies.implementation(it)
+        }
+    }
+}
+

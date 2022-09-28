@@ -15,6 +15,14 @@ if (getProperties().get("project") == null) {
     return
 }
 
-ext {
 
+ext {
+    RetrofitVersion = "2.5.0"
+
+    MMKV                        =["com.tencent:mmkv:1.2.11"]
+    SoLoader                    =["com.wuba.wuxian.sdk:soloader:0.0.4"]
+    Kotlin = ["org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"]
+    Retrofit = ["com.squareup.retrofit2:retrofit:" + "$RetrofitVersion"]
+    RetrofitAdapterRxJava = ["com.squareup.retrofit2:adapter-rxjava:$RetrofitVersion"]
+    RetrofitConvererGson = ["com.squareup.retrofit2:converter-gson:$RetrofitVersion"]
 }
