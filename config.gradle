@@ -56,8 +56,8 @@ ext {
             rootProject.ext.Xlog,
     ]
 
-    SeedUtilsLib=[
-            findProject(':SeedUtilsLib'),
+    SeedSupportLib=[
+            findProject(':SeedSupportLib'),
             rootProject.ext.Lifecycle,
     ]
 
@@ -66,7 +66,7 @@ ext {
             rootProject.ext.SeedGlobalEnvLib,
             rootProject.ext.Retrofit,
             rootProject.ext.CoreKTX,
-            rootProject.ext.SeedUtilsLib
+            rootProject.ext.SeedSupportLib
     ]
 
 
