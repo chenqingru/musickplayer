@@ -17,7 +17,7 @@ if (getProperties().get("project") == null) {
 
 
 ext {
-    RetrofitVersion = "2.5.0"
+    RetrofitVersion = "2.9.0"
 
     CoreKTX = ["androidx.core:core-ktx:1.7.0"]
     Appcompat = ["androidx.appcompat:appcompat:1.4.1"]
@@ -27,7 +27,8 @@ ext {
     Retrofit = [
             "com.squareup.retrofit2:retrofit:" + "$RetrofitVersion",
             "com.squareup.retrofit2:adapter-rxjava:$RetrofitVersion",
-            "com.squareup.retrofit2:converter-gson:$RetrofitVersion"
+            "com.squareup.retrofit2:converter-gson:$RetrofitVersion",
+            'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
     ]
 
 
@@ -48,11 +49,14 @@ ext {
 
 
     SeedGlobalEnvLib = [
+            findProject(':SeedGlobalEnvLib'),
             rootProject.ext.Xlog,
             rootProject.ext.Glide,
+            rootProject.ext.Coroutines,
     ]
 
     SeedNetworkLib = [
+            findProject(':SeedNetworkLib'),
             rootProject.ext.SeedGlobalEnvLib,
             rootProject.ext.Retrofit,
             rootProject.ext.CoreKTX,
@@ -65,6 +69,7 @@ ext {
             rootProject.ext.Appcompat,
             rootProject.ext.CoreKTX,
             rootProject.ext.Material,
+            rootProject.ext.Retrofit,
     ]
 
 

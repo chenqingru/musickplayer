@@ -38,6 +38,7 @@ dependencies {
     getCompileLibs(project).each {
         if (it != null) {
             implementation it
+            println("AAABBBB:"+it)
         }
     }
 }
