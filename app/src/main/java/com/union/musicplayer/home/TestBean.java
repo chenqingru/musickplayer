@@ -4,10 +4,8 @@ import java.util.List;
 
 public class TestBean {
 
-    String errorMsg;
-    int errorCode;
     public List<BookData> data;
-    class BookData{
+    public class BookData{
         String author;
         List<Children> children;
     }

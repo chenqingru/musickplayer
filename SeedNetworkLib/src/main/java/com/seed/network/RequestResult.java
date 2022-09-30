@@ -17,51 +17,51 @@ public class RequestResult<T> {
     public static final int SCODE_ERROR = -1;
 
 
-    @SerializedName("msg")
-    private String msg;
+    @SerializedName("errorMsg")
+    private String errorMsg;
 
-    @SerializedName(value = "result")
-    private T result;
+    @SerializedName(value = "data")
+    private T data;
 
-    @SerializedName("statusCode")
-    private int statusCode = SCODE_ERROR;
+    @SerializedName("errorCode")
+    private int errorCode = SCODE_ERROR;
 
 
     public String getMsg() {
-        return msg;
+        return errorMsg;
     }
 
     public void setMsg(String msg) {
-        this.msg = msg;
+        this.errorMsg = msg;
     }
 
     public T getResult() {
-        return result;
+        return data;
     }
 
     public void setResult(T result) {
-        this.result = result;
+        this.data = result;
     }
 
     public int getStatusCode() {
-        return statusCode;
+        return errorCode;
     }
 
     public void setStatusCode(int statusCode) {
-        this.statusCode = statusCode;
+        this.errorCode = statusCode;
     }
 
     public boolean isSuccess() {
-        return statusCode == SCODE_SUCCESS;
+        return errorCode == SCODE_SUCCESS;
     }
 
 
     @Override
     public String toString() {
         return "API{" +
-                "msg='" + msg + '\'' +
-                ", result=" + result +
-                ", statusCode=" + statusCode +
+                "msg='" + errorMsg + '\'' +
+                ", result=" + data +
+                ", statusCode=" + errorCode +
                 '}';
     }
 }

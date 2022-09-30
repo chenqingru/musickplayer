@@ -7,5 +7,5 @@ import rx.Observable
 
 interface TestInterKt {
     @GET("tree/json")
-    suspend fun test(): TestBean
+    suspend fun test(): RequestResult<List<TestBean.BookData>>
 }
