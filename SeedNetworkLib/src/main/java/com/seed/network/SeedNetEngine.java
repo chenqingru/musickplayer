@@ -25,7 +25,6 @@ public class SeedNetEngine {
     private SeedNetEngine() {
     }
 
-
     public <T> T get(Class<T> service) {
         return mRetrofit.create(service);
     }

@@ -9,7 +9,7 @@ public class RequestResult<T> {
     /**
      * 请求成功
      */
-    public static final int SCODE_SUCCESS = 1;
+    public static final int SCODE_SUCCESS = 0;
 
     /**
      * 请求错误

@@ -1,16 +1,11 @@
-package com.union.musicplayer.home;
+package com.union.musicplayer.home.retrofit;
+
 
 import java.util.List;
 
-public class TestBean {
-
-    public List<BookData> data;
-    public class BookData{
-        String author;
-        List<Children> children;
-    }
-
-
+public class BookData {
+    String author;
+    List<Children> children;
 
     class Children {
         String author;
@@ -21,5 +16,4 @@ public class TestBean {
         public int parentChapterId;
         public int visible;
     }
-
 }
