@@ -3,3 +3,4 @@ rootProject.name = "MusicKPlayer"
 include ':app'
 include ':SeedNetworkLib'
 include ':SeedGlobalEnvLib'
+include ':SeedUtilsLib'

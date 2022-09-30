@@ -3,6 +3,7 @@ package com.union.musicplayer.home
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.ViewModelProviders
 import com.musickplayer.R
 import com.seed.network.RequestResult
 import com.seed.network.SeedNetEngine
@@ -11,25 +12,20 @@ import retrofit2.Call
 import rx.Observable
 
 class MainActivity : AppCompatActivity() {
-    val mainScope = MainScope()
+    private val mainViewModel by lazy {
+        ViewModelProviders.of(this).get(MainViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mainScope.launch {
-            try {
-                val testNet = testNet()
-                Log.e("ABABAB", "${testNet}")
-            }catch (e:Exception){
-                e.printStackTrace()
+        mainViewModel.testLiveData.observe(this) { result ->
+            if (result != null) {
+                Log.e("ABABAB", "$result")
             }
         }
-
+        mainViewModel.requestTest()
     }
 
-    suspend fun testNet(): TestBean {
-        return withContext(Dispatchers.IO) {
-            SeedNetEngine.ins().get(TestInterKt::class.java).test()
-        }
-    }
+
 }
